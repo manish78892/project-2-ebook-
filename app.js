@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const port = 7889;
+const port = process.env.PORT || 7889;
 
 const mongoose = require("mongoose");
 const path = require("path");
@@ -35,16 +35,13 @@ app.use(methodOverride("_method"));
 
 const MONGO_URL = process.env.MONGO_URL;
 
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
-
-main()
+mongoose
+  .connect(MONGO_URL)
   .then(() => {
-    console.log("Connected to MongoDB Atlas");
+    console.log("MongoDB Connected");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("MongoDB Connection Error:", err);
   });
 
 /* ======================
@@ -68,7 +65,6 @@ const sessionConfig = {
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
@@ -89,7 +85,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 /* ======================
-   Flash + User Middleware
+   Flash Middleware
 ====================== */
 
 app.use((req, res, next) => {
@@ -116,7 +112,7 @@ app.use("/books", booksRoutes);
 app.use("/", userRoutes);
 
 /* ======================
-   404 Error
+   404 Handler
 ====================== */
 
 app.use((req, res, next) => {
@@ -133,7 +129,7 @@ app.use((err, req, res, next) => {
 });
 
 /* ======================
-   Server Start
+   Start Server
 ====================== */
 
 app.listen(port, () => {
