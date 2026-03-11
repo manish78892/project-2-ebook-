@@ -5,7 +5,7 @@ The project is built using Node.js, Express, MongoDB, and EJS.
 
 🚀 Live Demo
 
-🌐 https://project-2-ebook-lnshzngow-manish78892s-projects.vercel.app
+🌐 https://ebooks-gilt.vercel.app/
 
 🛠️ Technologies Used
 
