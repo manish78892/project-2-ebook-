@@ -38,3 +38,13 @@ View latest books on homepage
 Authentication using Passport.js
 
 Flash messages for user feedback
+🌍 Deployment
+
+This project is deployed on Vercel and uses MongoDB Atlas as the cloud database.
+
+👨‍💻 Author
+
+Manish Panwar
+
+GitHub: https://github.com/manish78892
+
