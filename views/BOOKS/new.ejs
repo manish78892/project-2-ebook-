@@ -1,0 +1,60 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+  <div class="row">
+    <div class="col-8 offset-2">
+      <br>
+      <h1>Add New Book</h1>
+      <form action="/books" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Title:</label><br>
+          <input placeholder="Enter Book Title" type="text" name="title" required class="form-control">
+          <div class="invalid-feedback">
+            Please enter a book title</div><br>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description:</label><br>
+          <textarea placeholder="Write about book description..." name="description" class="form-control" rows="2"
+            cols="15" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a book description</div><br>
+        </div>
+
+    <div class="row col-md-8">
+      <div class="mb-3 col-5">
+        <label for="genre" class="form-label">Genre:</label><br>
+        <input placeholder="Self Help" type="text" name="genre" class="form-control" required>
+        <div class="invalid-feedback">
+          Please enter a book genre</div><br>
+      </div>
+
+      <div class="mb-3 col-3">
+        <label for="pages" class="form-label">Pages:</label><br>
+        <input placeholder="0" type="number" name="pages" class="form-control"><br>
+      </div>
+
+      <div class="mb-3 col-3">
+        <label for="rating" class="form-label">Rating:</label><br>
+        <input placeholder="0.0" type="number" name="rating" step="0.1" class="form-control"><br>
+      </div>
+    </div>
+
+    <div class="mb-3 col-3">
+      <label for="coverImage" class="form-label ">Cover Image URL:</label><br>
+      <input placeholder="Enter Cover Image/URL" type="text" name="coverImage" class="form-control"><br>
+    </div>
+
+    <!-- PDF upload -->
+    <div class="mb-3">
+      <label for="pdf" class="form-label">Upload Book (PDF only, max 5MB):</label>
+      <input type="file" name="pdf" accept="application/pdf" required class="form-control">
+      <div class="invalid-feedback">
+        Please upload a PDF file (max 5MB)</div><br>
+    </div>
+
+    <button type="submit" class="btn btn-dark add-btn">Add Book</button>
+    <br><br>
+    </form>
+  </div>
+</div>

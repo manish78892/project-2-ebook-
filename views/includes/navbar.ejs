@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="fa-solid fa-swatchbook"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/books">All Books</a>
+                 <% if(currentUser && currentUser.role === "admin") { %>
+        <a class="nav-link text-danger" href="/admin/dashboard">
+            Admin Panel
+        </a>
+        <%} %>
+            </div>
+
+           <% if (currentUser) { %>
+<form class="d-flex mx-auto" action="/books" method="GET">
+  <input 
+    class="form-control me-2" 
+    type="search" 
+    name="search"
+    placeholder="Search books..."
+  >
+  <button class="btn btn-outline-dark" type="submit">
+    Search
+  </button>
+</form>
+<% } %>
+        <div class="navbar-nav ms-auto">
+
+    <% if(!currentUser) { %>
+        
+        <a class="nav-link" href="/signup">Sign up</a>
+        <a class="nav-link" href="/login">Login</a>
+
+    <% } else { %>
+
+        <span class="nav-link">
+            Welcome, <%= currentUser.username %>
+        </span>
+
+        <a class="nav-link text-danger" href="/logout">
+            Log out
+        </a>
+
+    <% } %>
+
+</div>
+        </div>
+        </div>
+    </div>
+</nav>

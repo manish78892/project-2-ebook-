@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="container mt-4">
+
+  <h1 class="text-center mb-4">Welcome to eBook Library<i class="fa-solid fa-swatchbook"></i></h1>
+
+  <% if(!currentUser) { %>
+    <div class="text-center mb-4">
+      <a href="/signup" class="btn btn-dark">Get Started</a>
+    </div>
+  <% } %>
+
+  <h3 class="mb-3">Latest Books</h3>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 g-4">
+
+    <% for(let book of books) { %>
+
+      <div class="col">
+        <div class="card h-100">
+
+          <img src="<%= book.coverImage %>" 
+               class="card-img-top"
+               style="height:200px; object-fit:cover;">
+
+          <div class="card-body">
+            <h5><%= book.title %></h5>
+            <p><%= book.description?.substring(0, 60) %>...</p>
+
+            <a href="/books/<%= book._id %>/read"
+               class="btn btn-primary w-100">
+               Read Book
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    <% } %>
+
+  </div>
+
+</div>

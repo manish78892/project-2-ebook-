@@ -1,0 +1,55 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <div class="card shadow">
+
+                    <!-- Cover Image -->
+                    <img src="<%= book?.coverImage || '/images/cover.jpg' %>" class="card-img-top show-img"
+                        alt="<%= book?.title || 'Unknown Book' %> cover" style="height:350px; object-fit:cover;">
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-3">
+                            <%= book?.title || "Unknown Book" %>
+                        </h2>
+
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item">
+                                <strong>Description:</strong><br>
+                                <%= book?.description || "N/A" %>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Genre:</strong>
+                                <%= book?.genre || "N/A" %>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Pages:</strong>
+                                <%= book?.pages || "N/A" %>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Rating:</strong> ⭐ <%= book?.rating || "N/A" %>
+                            </li>
+                        </ul>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between">
+
+                            <a href="<%= book?.filePath %>" target="_blank" class="btn btn-primary">
+                                📖 Read Book
+                            </a>
+
+                            <div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

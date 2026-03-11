@@ -1,0 +1,60 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="row">
+  <div class="col-8 offset-2">
+  <br>     
+  <h1>Edit Book</h1>
+  <form action="/books/<%= book?._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title:</label><br>
+      <input placeholder="Enter Book Title" type="text" name="title" value="<%= book?.title || '' %>" required class="form-control">
+      <div class="invalid-feedback">
+        Please enter a book title</div><br>
+    </div>
+    
+    <div class="mb-3">
+      <label for="description" class="form-label">Description:</label><br>
+      <textarea placeholder="Enter Book Description" name="description" class="form-control" required><%= book?.description || '' %></textarea>
+      <div class="invalid-feedback">
+        Please enter a book description</div><br>
+    </div>
+
+    <div class="row col-md-8">
+     <div class="mb-3 col-5" >
+      <label for="genre" class="form-label">Genre:</label><br>
+      <input placeholder="Enter Book Genre" type="text" name="genre" value="<%= book?.genre || '' %>" required class="form-control">
+      <div class="invalid-feedback">
+        Please enter a book genre</div><br>
+    </div>
+
+      <div class="mb-3 col-3">
+        <label for="pages" class="form-label">Pages:</label><br>
+        <input placeholder="0" type="number" name="pages" value="<%= book?.pages || '' %>" class="form-control"><br>
+      </div>
+
+      <div class="mb-3 col-3">
+        <label for="rating" class="form-label">Rating:</label><br>
+        <input placeholder="0.0" type="number" name="rating" step="0.1" value="<%= book?.rating || '' %>" class="form-control"><br>
+      </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="coverImage" class="form-label">Cover Image URL:</label><br>
+        <input placeholder="Enter Cover Image URL" type="text" name="coverImage" value="<%= book?.coverImage || '' %>" class="form-control" required>
+        <div class="invalid-feedback">
+          Please enter a cover image URL</div><br>
+    </div>
+    
+    <!-- PDF upload -->
+    <div class="mb-3">
+    <label for="pdf" class="form-label">Upload Book (PDF only, max 5MB):</label>
+    <input type="file" name="pdf" accept="application/pdf" required class="form-control">
+    <div class="invalid-feedback">
+      Please upload a PDF file (max 5MB)</div><br><br>
+    </div>
+    <button type="submit" class="btn btn-dark edit-btn">Edit Book</button>
+    <br><br>
+  </form>
+  </div>
+</div>
