@@ -40,11 +40,19 @@
                   <p><span class="badge bg-warning text-dark px-3 py-2">⭐ <%= book?.rating || "N/A" %></span></p>
                 </div>
 
-                <!-- Read Button -->
+                <!-- Read Button (only for logged-in users) -->
                 <div class="mt-3">
-                  <a href="<%= book?.filePath %>" target="_blank" class="btn btn-primary w-100 rounded-pill py-2">
-                    <i class="fa-solid fa-book-open me-2"></i> Read Book
-                  </a>
+                  <% if (currentUser) { %>
+                    <a href="<%= book?.filePath %>" target="_blank" class="btn btn-primary w-100 rounded-pill py-2">
+                      <i class="fa-solid fa-book-open me-2"></i> Read Book
+                    </a>
+                  <% } else { %>
+                    <div class="alert alert-info text-center mb-0 py-3" role="alert">
+                      <i class="fa-solid fa-lock me-2"></i>
+                      <a href="/login" class="alert-link">Log in</a> or 
+                      <a href="/signup" class="alert-link">sign up</a> to read this book.
+                    </div>
+                  <% } %>
                 </div>
               </div>
             </div>
