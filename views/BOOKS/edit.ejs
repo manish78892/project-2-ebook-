@@ -1,60 +1,161 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-<div class="row">
-  <div class="col-8 offset-2">
-  <br>     
-  <h1>Edit Book</h1>
-  <form action="/books/<%= book?._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+<div class="edit-book-page">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+            <h1 class="fw-bold">
+              <i class="fa-solid fa-pen-to-square me-2" style="color: #80b918;"></i>
+              Edit Book
+            </h1>
+            <p class="text-secondary">Update the book details</p>
+          </div>
 
-    <div class="mb-3">
-      <label for="title" class="form-label">Title:</label><br>
-      <input placeholder="Enter Book Title" type="text" name="title" value="<%= book?.title || '' %>" required class="form-control">
-      <div class="invalid-feedback">
-        Please enter a book title</div><br>
-    </div>
-    
-    <div class="mb-3">
-      <label for="description" class="form-label">Description:</label><br>
-      <textarea placeholder="Enter Book Description" name="description" class="form-control" required><%= book?.description || '' %></textarea>
-      <div class="invalid-feedback">
-        Please enter a book description</div><br>
-    </div>
+          <div class="card-body p-4 p-lg-5">
+            <form action="/books/<%= book?._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+              <!-- Title -->
+              <div class="mb-4">
+                <label for="title" class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+                <input type="text" 
+                       name="title" 
+                       id="title"
+                       class="form-control form-control-lg rounded-3" 
+                       placeholder="Enter book title"
+                       value="<%= book?.title || '' %>"
+                       required>
+                <div class="invalid-feedback">Please enter a book title</div>
+              </div>
 
-    <div class="row col-md-8">
-     <div class="mb-3 col-5" >
-      <label for="genre" class="form-label">Genre:</label><br>
-      <input placeholder="Enter Book Genre" type="text" name="genre" value="<%= book?.genre || '' %>" required class="form-control">
-      <div class="invalid-feedback">
-        Please enter a book genre</div><br>
-    </div>
+              <!-- Description -->
+              <div class="mb-4">
+                <label for="description" class="form-label fw-semibold">Description <span class="text-danger">*</span></label>
+                <textarea name="description" 
+                          id="description"
+                          class="form-control rounded-3" 
+                          rows="4" 
+                          placeholder="Write a brief description of the book..."
+                          required><%= book?.description || '' %></textarea>
+                <div class="invalid-feedback">Please enter a book description</div>
+              </div>
 
-      <div class="mb-3 col-3">
-        <label for="pages" class="form-label">Pages:</label><br>
-        <input placeholder="0" type="number" name="pages" value="<%= book?.pages || '' %>" class="form-control"><br>
+              <!-- Row for Genre, Pages, Rating -->
+              <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                  <label for="genre" class="form-label fw-semibold">Genre <span class="text-danger">*</span></label>
+                  <input type="text" 
+                         name="genre" 
+                         id="genre"
+                         class="form-control rounded-3" 
+                         placeholder="e.g., Fiction, Self‑Help"
+                         value="<%= book?.genre || '' %>"
+                         required>
+                  <div class="invalid-feedback">Please enter a genre</div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="pages" class="form-label fw-semibold">Pages</label>
+                  <input type="number" 
+                         name="pages" 
+                         id="pages"
+                         class="form-control rounded-3" 
+                         placeholder="e.g., 320"
+                         value="<%= book?.pages || '' %>">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="rating" class="form-label fw-semibold">Rating</label>
+                  <input type="number" 
+                         name="rating" 
+                         id="rating"
+                         class="form-control rounded-3" 
+                         step="0.1" 
+                         placeholder="0.0 – 5.0"
+                         value="<%= book?.rating || '' %>">
+                </div>
+              </div>
+
+              <!-- Cover Image URL -->
+              <div class="mb-4">
+                <label for="coverImage" class="form-label fw-semibold">Cover Image URL <span class="text-danger">*</span></label>
+                <input type="text" 
+                       name="coverImage" 
+                       id="coverImage"
+                       class="form-control rounded-3" 
+                       placeholder="https://example.com/cover.jpg"
+                       value="<%= book?.coverImage || '' %>"
+                       required>
+                <div class="invalid-feedback">Please enter a cover image URL</div>
+              </div>
+
+              <!-- PDF Upload (optional) -->
+              <div class="mb-4">
+                <label for="pdf" class="form-label fw-semibold">Upload New PDF (optional)</label>
+                <input type="file" 
+                       name="pdf" 
+                       id="pdf"
+                       accept="application/pdf" 
+                       class="form-control rounded-3">
+                <div class="form-text text-muted">
+                  <i class="fa-regular fa-file-pdf me-1"></i> 
+                  Leave blank to keep the existing PDF file. Max 5MB.
+                </div>
+                <div class="invalid-feedback">PDF must be a valid file (max 5MB).</div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-lg rounded-pill edit-btn">
+                  <i class="fa-regular fa-floppy-disk me-2"></i> Update Book
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-
-      <div class="mb-3 col-3">
-        <label for="rating" class="form-label">Rating:</label><br>
-        <input placeholder="0.0" type="number" name="rating" step="0.1" value="<%= book?.rating || '' %>" class="form-control"><br>
-      </div>
     </div>
-
-    <div class="mb-3">
-        <label for="coverImage" class="form-label">Cover Image URL:</label><br>
-        <input placeholder="Enter Cover Image URL" type="text" name="coverImage" value="<%= book?.coverImage || '' %>" class="form-control" required>
-        <div class="invalid-feedback">
-          Please enter a cover image URL</div><br>
-    </div>
-    
-    <!-- PDF upload -->
-    <div class="mb-3">
-    <label for="pdf" class="form-label">Upload Book (PDF only, max 5MB):</label>
-    <input type="file" name="pdf" accept="application/pdf" required class="form-control">
-    <div class="invalid-feedback">
-      Please upload a PDF file (max 5MB)</div><br><br>
-    </div>
-    <button type="submit" class="btn btn-dark edit-btn">Edit Book</button>
-    <br><br>
-  </form>
   </div>
 </div>
+
+<style>
+  .edit-book-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+  }
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15) !important;
+  }
+  .form-control, .form-control-lg {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s;
+  }
+  .form-control:focus {
+    border-color: #80b918;
+    box-shadow: 0 0 0 0.25rem rgba(128, 185, 24, 0.25);
+  }
+  .edit-btn {
+    background-color: #80b918;
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .edit-btn:hover {
+    background-color: #6a9e13;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128,185,24,0.3);
+  }
+  .card-header h1 {
+    font-size: 2rem;
+  }
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 1.5rem !important;
+    }
+  }
+</style>

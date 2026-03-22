@@ -1,54 +1,74 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/"><i class="fa-solid fa-swatchbook"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/books">All Books</a>
-                 <% if(currentUser && currentUser.role === "admin") { %>
-        <a class="nav-link text-danger" href="/admin/dashboard">
-            Admin Panel
-        </a>
-        <%} %>
-            </div>
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top py-2">
+  <div class="container-fluid px-3 px-lg-4">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="/">
+      <i class="fa-solid fa-swatchbook me-1"></i> ebook
+    </a>
 
-           <% if (currentUser) { %>
-<form class="d-flex mx-auto" action="/books" method="GET">
-  <input 
-    class="form-control me-2" 
-    type="search" 
-    name="search"
-    placeholder="Search books..."
-  >
-  <button class="btn btn-outline-dark" type="submit">
-    Search
-  </button>
-</form>
-<% } %>
-        <div class="navbar-nav ms-auto">
+    <!-- Toggler -->
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <% if(!currentUser) { %>
-        
-        <a class="nav-link" href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Login</a>
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left side links -->
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/books">All Books</a>
+        </li>
+        <% if(currentUser && currentUser.role === "admin") { %>
+        <li class="nav-item">
+          <a class="nav-link admin-link" href="/admin/dashboard">
+            <i class="fa-solid fa-gauge-high me-1"></i> Admin Panel
+          </a>
+        </li>
+        <% } %>
+      </ul>
 
-    <% } else { %>
-
-        <span class="nav-link">
-            Welcome, <%= currentUser.username %>
-        </span>
-
-        <a class="nav-link text-danger" href="/logout">
-            Log out
-        </a>
-
-    <% } %>
-
-</div>
+      <!-- Search form (visible only for logged in users) -->
+      <% if (currentUser) { %>
+      <form class="d-flex mx-auto my-2 my-md-0 search-form" action="/books" method="GET">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input 
+            class="form-control border-start-0 ps-0" 
+            type="search" 
+            name="search"
+            placeholder="Search books by title, author..."
+            aria-label="Search"
+          >
+          <button class="btn btn-outline-dark" type="submit">Search</button>
         </div>
-        </div>
+      </form>
+      <% } %>
+
+      <!-- Right side (user info) -->
+      <ul class="navbar-nav ms-auto">
+        <% if(!currentUser) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-regular fa-circle-user me-1 fs-5"></i>
+            <span><%= currentUser.username %></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item text-danger" href="/logout">Log out</a></li>
+          </ul>
+        </li>
+        <% } %>
+      </ul>
     </div>
+  </div>
 </nav>

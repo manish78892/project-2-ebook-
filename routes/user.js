@@ -67,7 +67,7 @@ router.get('/login', (req,  res) => {
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), 
 wrapAsync(async (req, res) => {
     req.flash('success', 'welcome back!');
-    res.redirect('/books');
+    res.redirect('/');
 }));
 
 router.get('/logout', (req, res, next) => {

@@ -1,55 +1,94 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+          <!-- Left Column: Cover Image + Title -->
+          <div class="col-md-5 p-4 text-center bg-light">
+            <img src="<%= book?.coverImage || '/images/cover.jpg' %>"
+                 class="img-fluid rounded-3 shadow-sm mb-3"
+                 alt="<%= book?.title || 'Unknown Book' %> cover"
+                 style="max-height: 300px; width: auto; object-fit: contain;">
+            <h2 class="card-title fw-bold"><%= book?.title || "Unknown Book" %></h2>
+          </div>
 
-                <div class="card shadow">
-
-                    <!-- Cover Image -->
-                    <img src="<%= book?.coverImage || '/images/cover.jpg' %>" class="card-img-top show-img"
-                        alt="<%= book?.title || 'Unknown Book' %> cover" style="height:350px; object-fit:cover;">
-
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <h2 class="card-title text-center mb-3">
-                            <%= book?.title || "Unknown Book" %>
-                        </h2>
-
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item">
-                                <strong>Description:</strong><br>
-                                <%= book?.description || "N/A" %>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Genre:</strong>
-                                <%= book?.genre || "N/A" %>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Pages:</strong>
-                                <%= book?.pages || "N/A" %>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Rating:</strong> ⭐ <%= book?.rating || "N/A" %>
-                            </li>
-                        </ul>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-between">
-
-                            <a href="<%= book?.filePath %>" target="_blank" class="btn btn-primary">
-                                📖 Read Book
-                            </a>
-
-                            <div>
-                                </form>
-                            </div>
-
-                        </div>
-
-                    </div>
+          <!-- Right Column: Details Box -->
+          <div class="col-md-7">
+            <div class="card-body p-4">
+              <div class="card bg-light border-0 shadow-sm rounded-3 p-3">
+                <!-- Description -->
+                <div class="mb-3">
+                  <h5><i class="fa-regular fa-file-lines me-2 text-muted"></i>Description</h5>
+                  <p class="text-secondary mb-0"><%= book?.description || "N/A" %></p>
                 </div>
 
+                <div class="row">
+                  <div class="col-sm-6 mb-3">
+                    <h5><i class="fa-regular fa-tags me-2 text-muted"></i>Genre</h5>
+                    <p><%= book?.genre || "N/A" %></p>
+                  </div>
+                  <div class="col-sm-6 mb-3">
+                    <h5><i class="fa-regular fa-copy me-2 text-muted"></i>Pages</h5>
+                    <p><%= book?.pages || "N/A" %></p>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <h5><i class="fa-regular fa-star me-2 text-muted"></i>Rating</h5>
+                  <p><span class="badge bg-warning text-dark px-3 py-2">⭐ <%= book?.rating || "N/A" %></span></p>
+                </div>
+
+                <!-- Read Button -->
+                <div class="mt-3">
+                  <a href="<%= book?.filePath %>" target="_blank" class="btn btn-primary w-100 rounded-pill py-2">
+                    <i class="fa-solid fa-book-open me-2"></i> Read Book
+                  </a>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+
+      <!-- Back Button (styled) -->
+      <div class="text-center mt-4">
+        <a href="/books" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+          <i class="fa-solid fa-arrow-left me-2"></i> Back to Books
+        </a>
+      </div>
     </div>
+  </div>
+</div>
+
+<style>
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
+  }
+  .btn-primary {
+    background-color: #80b918;
+    border-color: #80b918;
+  }
+  .btn-primary:hover {
+    background-color: #6a9e13;
+    border-color: #6a9e13;
+    transform: translateY(-2px);
+  }
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+  @media (max-width: 768px) {
+    .col-md-5, .col-md-7 {
+      text-align: center;
+    }
+    .col-md-5 img {
+      max-height: 200px;
+    }
+  }
+</style>

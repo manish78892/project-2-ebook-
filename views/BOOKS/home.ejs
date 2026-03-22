@@ -1,43 +1,277 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-<div class="container mt-4">
-
-  <h1 class="text-center mb-4">Welcome to eBook Library<i class="fa-solid fa-swatchbook"></i></h1>
-
-  <% if(!currentUser) { %>
-    <div class="text-center mb-4">
-      <a href="/signup" class="btn btn-dark">Get Started</a>
+<div class="home-modern">
+  <!-- Hero / Intro Section -->
+  <div class="hero-section position-relative overflow-hidden">
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
     </div>
-  <% } %>
-
-  <h3 class="mb-3">Latest Books</h3>
-
-  <div class="row row-cols-lg-3 row-cols-md-2 g-4">
-
-    <% for(let book of books) { %>
-
-      <div class="col">
-        <div class="card h-100">
-
-          <img src="<%= book.coverImage %>" 
-               class="card-img-top"
-               style="height:200px; object-fit:cover;">
-
-          <div class="card-body">
-            <h5><%= book.title %></h5>
-            <p><%= book.description?.substring(0, 60) %>...</p>
-
-            <a href="/books/<%= book._id %>/read"
-               class="btn btn-primary w-100">
-               Read Book
-            </a>
+    <div class="container py-5">
+      <div class="row align-items-center min-vh-50 py-5">
+        <div class="col-lg-6 text-center text-lg-start">
+          <h1 class="display-3 fw-bold mb-4">
+            Welcome to eBook Library
+          </h1>
+          <p class="lead mb-4">
+            Your personal gateway to a world of stories, knowledge, and inspiration.
+          </p>
+          <div class="intro-text mb-4">
+            <p>📚 <strong>Thousands of eBooks</strong> – from timeless classics to the latest bestsellers, all at your fingertips.</p>
+            <p>✨ <strong>Read anywhere, anytime</strong> – on any device, with no downloads required.</p>
+            <p>🎯 <strong>Completely free</strong> – start your reading journey today.</p>
           </div>
-
+          <% if(!currentUser) { %>
+            <a href="/signup" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
+              Join the Library <i class="fa-solid fa-arrow-right ms-2"></i>
+            </a>
+          <% } else { %>
+            <a href="/books" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg">
+              Start Reading <i class="fa-solid fa-book-open ms-2"></i>
+            </a>
+          <% } %>
+        </div>
+        <div class="col-lg-6 text-center mt-5 mt-lg-0">
+          <img src="https://cdn-icons-png.flaticon.com/512/1864/1864514.png" 
+               alt="Reading illustration" 
+               class="img-fluid hero-illustration"
+               style="max-width: 80%;">
         </div>
       </div>
-
-    <% } %>
-
+    </div>
   </div>
 
+  <!-- Latest Books Section -->
+  <div class="container my-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+      <h2 class="mb-3 mb-sm-0">
+        <i class="fa-regular fa-clock me-2"></i> Latest Additions
+      </h2>
+      <a href="/books" class="btn btn-outline-dark rounded-pill">
+        View All <i class="fa-solid fa-chevron-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% for(let book of books) { %>
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm modern-card">
+            <div class="card-img-top-wrapper">
+              <img src="<%= book.coverImage %>" 
+                   class="card-img-top"
+                   alt="<%= book.title %>">
+              <div class="card-overlay">
+                <a href="/books/<%= book._id %>/read" class="btn btn-light rounded-pill">
+                  Read Now <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title fw-semibold"><%= book.title %></h5>
+              <% if(book.author) { %>
+                <p class="card-text text-muted small mb-2">
+                  <i class="fa-regular fa-user"></i> <%= book.author %>
+                </p>
+              <% } %>
+              <p class="card-text">
+                <%= book.description?.substring(0, 100) %>...
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="/books/<%= book._id %>/read" class="btn btn-outline-primary w-100 rounded-pill">
+                <i class="fa-solid fa-book-open me-1"></i> Continue Reading
+              </a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <% if(books.length === 0) { %>
+      <div class="alert alert-info text-center mt-4">
+        <i class="fa-regular fa-face-smile me-2"></i> No books available yet. Check back soon!
+      </div>
+    <% } %>
+  </div>
 </div>
+
+<style>
+/* Same modern styles as before – you can keep them or move to your main CSS */
+.home-modern {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+.hero-section {
+  position: relative;
+  background: linear-gradient(120deg, #ffffff 0%, #f8f9fa 100%);
+  margin-bottom: 2rem;
+}
+
+.hero-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.shape {
+  position: absolute;
+  background: rgba(128, 185, 24, 0.1);
+  border-radius: 50%;
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  right: -150px;
+  background: rgba(128, 185, 24, 0.15);
+}
+
+.shape-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  left: -100px;
+  background: rgba(13, 110, 253, 0.1);
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  top: 30%;
+  left: 10%;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #80b918, #0d6efd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-illustration {
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.modern-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.modern-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2) !important;
+}
+
+.card-img-top-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.modern-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-overlay .btn {
+  background-color: white;
+  color: #80b918;
+  border: none;
+  padding: 8px 20px;
+  font-weight: 500;
+}
+
+.card-footer .btn-outline-primary {
+  color: #80b918;
+  border-color: #80b918;
+}
+
+.card-footer .btn-outline-primary:hover {
+  background-color: #80b918;
+  border-color: #80b918;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #80b918;
+  border-color: #80b918;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #6a9e13;
+  border-color: #6a9e13;
+  transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+  border-radius: 30px;
+  transition: all 0.3s;
+}
+
+.btn-outline-dark:hover {
+  background-color: #80b918;
+  border-color: #80b918;
+  color: white;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    text-align: center;
+  }
+  .hero-illustration {
+    max-width: 60%;
+  }
+  .display-3 {
+    font-size: 2.5rem;
+  }
+  .intro-text p {
+    font-size: 1rem;
+  }
+}
+</style>
