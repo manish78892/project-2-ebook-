@@ -5,7 +5,7 @@ The project is built using Node.js, Express, MongoDB, and EJS.
 
 🚀 Live Demo
 
-🌐 https://ebooks-gilt.vercel.app/
+🌐 https://ebook-theta-seven.vercel.app/
 
 🛠️ Technologies Used
 
