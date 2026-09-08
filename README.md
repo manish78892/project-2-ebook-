@@ -1,5 +1,6 @@
 📚 E-Book Management System  (Basic Knowledge and Learning Phase)
 
+(admin123 & 123321)
 A web-based E-Book management platform where users can browse books and administrators can manage book data.
 The project is built using Node.js, Express, MongoDB, and EJS.
 
